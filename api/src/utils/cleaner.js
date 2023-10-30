@@ -6,7 +6,6 @@ const cleaner = (arr) => {
       height: dog.height,
       weight: dog.weight,
       life_span: dog.life_span,
-      created: false,
     };
   });
 };

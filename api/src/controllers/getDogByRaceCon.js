@@ -11,9 +11,11 @@ const getDogByRace = async (race) => {
 
   const dogsApi = cleaner(api);
 
-  const dogsfiltered = dogsApi.filter((dog) => dog.name === race);
+  const searchRace = race.toLowerCase()
 
-  const dogDB = await Dog.findAll({ where: { name: race } });
+  const dogsfiltered = dogsApi.filter((dog) => dog.name.toLowerCase() === searchRace);
+
+  const dogDB = await Dog.findAll({ where: { name: searchRace } });
 
   return [...dogsfiltered, dogDB];
 };

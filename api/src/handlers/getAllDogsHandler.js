@@ -2,12 +2,12 @@ const { getAllDogs } = require("../controllers/getAllDogsController");
 const { getDogByRace } = require("../controllers/getDogByRaceCon");
 
 const getAllDogsHandler = async (req, res) => {
-  const { race } = req.query;
+  const { name } = req.query;
 
   try {
-    if (race) {
-      rece = race.toLowerCase();
-      const dogByRace = await getDogByRace(race);
+    if (name) {
+      const lowerCaseName = name.toLowerCase();
+      const dogByRace = await getDogByRace(lowerCaseName);
       if (dogByRace.length === 0) {
         res.status(404).json({ message: "Raza no encontrada" });
       }
