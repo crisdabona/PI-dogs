@@ -6,7 +6,11 @@ const getAllDogsHandler = async (req, res) => {
 
   try {
     if (race) {
+      rece = race.toLowerCase();
       const dogByRace = await getDogByRace(race);
+      if (dogByRace.length === 0) {
+        res.status(404).json({ message: "Raza no encontrada" });
+      }
       res.status(200).json(dogByRace);
     } else {
       const response = await getAllDogs();
@@ -19,4 +23,4 @@ const getAllDogsHandler = async (req, res) => {
 
 module.exports = {
   getAllDogsHandler,
-}
+};

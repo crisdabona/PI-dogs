@@ -32,3 +32,4 @@ module.exports = Dog = (sequelize) =>
     timestamps: false
 })
 
+ 
