@@ -1,0 +1,23 @@
+.card-container{
+  width: 20%;
+  position: relative;
+  background-color: #eee;
+  border: solid 5px #7752FE;
+  border-radius: 10px;
+  margin: 10px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.card-container:hover{
+  z-index: 100;
+  border-color: #190482;
+  transform: scale(1.1);
+}
+
+.card-container h2{
+  margin: 0;
+  background-color: #8E8FFA;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}

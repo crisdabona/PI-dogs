@@ -1,0 +1,38 @@
+.search-container{
+  margin-bottom: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search-container form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #8E8FFA;
+  border-radius: 10px;
+  width: 50%;
+  height: 60px;
+}
+
+.search-container form input{
+  border: none;
+  outline: none;
+  width: 80%;
+  height: 30px;
+  border-radius: 5px;
+  margin-right: 5px;
+  padding: 0 10px 0 10px;
+}
+
+.search-container form button{
+  width: 80px;
+  height: 30px;
+  line-height: 10px;
+  border-radius: 5px;
+  color: #7752FE;
+}
+
+.search-container form button:hover{
+  color: blue;
+}
