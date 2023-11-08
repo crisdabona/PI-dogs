@@ -2,12 +2,12 @@ import React from 'react'
 
 import './navBar.css'
 
-const NavBar = () => {
+const NavBar = ({ handleChange, handleFind }) => {
   return (
     <div className='search-container'>
-      <form action="">
-        <input type="text" placeholder='Search' />
-        <button>Find</button>
+      <form action="" onChange={handleChange}>
+        <input type="search" placeholder='Search' />
+        <button type='submit' onClick={ handleFind }>Find</button>
       </form>
     </div>
   )

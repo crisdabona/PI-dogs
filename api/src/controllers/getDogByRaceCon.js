@@ -6,7 +6,7 @@ const { API_KEY } = process.env;
 const { Dog } = require("../db");
 
 const getDogByRace = async (race) => {
-  const api = (await axios(`https://api.thedogapi.com/v1/breeds?${API_KEY}`))
+  const api = (await axios(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`))
     .data;
 
   const dogsApi = cleaner(api);

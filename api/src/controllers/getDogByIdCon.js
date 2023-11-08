@@ -7,7 +7,7 @@ const { Dog, Temperament } = require("../db");
 const getDogById = async (id, source) => {
   const dog =
     source === "api"
-      ? (await axios(`https://api.thedogapi.com/v1/breeds/${id}?${API_KEY}`))
+      ? (await axios(`https://api.thedogapi.com/v1/breeds/${id}?api_key=${API_KEY}`))
           .data
       : await Dog.findByPk(id, {
           include: {

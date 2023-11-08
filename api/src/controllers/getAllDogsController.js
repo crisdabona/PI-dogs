@@ -8,7 +8,7 @@ const { Dog } = require("../db");
 const getAllDogs = async () => {
   const dogGB = await Dog.findAll();
 
-  const api = (await axios(`https://api.thedogapi.com/v1/breeds?${API_KEY}`))
+  const api = (await axios(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`))
     .data;
 
   const dogsApi = cleaner(api);

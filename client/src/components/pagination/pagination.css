@@ -1,0 +1,14 @@
+.pagination{
+  margin: 0;
+}
+
+.pagination ul {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+}
+
+.pagination ul li button.active {
+  color: blue;
+  border-color: #646cff;
+}
