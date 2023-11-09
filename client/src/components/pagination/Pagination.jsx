@@ -3,19 +3,16 @@ import React from 'react';
 import './pagination.css'
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
-  const maxPagesToShow = 3; // Número máximo de páginas intermedias para mostrar
+  const maxPagesToShow = 3; 
   const pageNumbers = [];
 
-  // Calcula el rango de páginas a mostrar
   let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
   let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
 
-  // Ajusta el inicio si el rango se desplaza hacia la derecha
   if (endPage - startPage + 1 < maxPagesToShow) {
     startPage = Math.max(1, endPage - maxPagesToShow + 1);
   }
 
-  // Crea un array con las páginas a mostrar
   for (let i = startPage; i <= endPage; i++) {
     pageNumbers.push(i);
   }

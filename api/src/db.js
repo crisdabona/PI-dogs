@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const DogModel = require('./models/Dog')
 const TemperamentModel = require('./models/Temperament')
+const OriginModel = require('./models/Origin')
 const {
   DB_USER, DB_PASSWORD, DB_HOST,
 } = process.env;
@@ -35,13 +36,17 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 DogModel(sequelize)
 TemperamentModel(sequelize)
+OriginModel(sequelize)
 
-const { Dog, Temperament } = sequelize.models;
+const { Dog, Temperament, Origin} = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 Dog.belongsToMany(Temperament, { through: 'Dog_Temperament' })
 Temperament.belongsToMany(Dog, {through: 'Dog_Temperament'})
+
+Dog.belongsToMany(Origin, { through: 'Dog_Origin' })
+Origin.belongsToMany(Dog, { through: 'Dog_Origin' })
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

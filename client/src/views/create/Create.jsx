@@ -1,6 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getTemperaments, createDog } from "../../redux/actions";
+
+
+import "./create.css";
 
 const Create = () => {
+  const dispatch = useDispatch();
+  const temperaments = useSelector((state) => state.temperaments);
+  const [selectedTemperaments, setSelectedTemperaments] = useState([]);
+
   const [formData, setFormData] = useState({
     name: "",
     minHeight: "",
@@ -46,9 +55,9 @@ const Create = () => {
       newErrors.maxHeight = "La altura debe ser un número";
     } else if (parseFloat(input.minHeight) > parseFloat(input.maxHeight)) {
       newErrors.minHeight =
-        "La altura mínima no puede ser mayor que la altura máxima";
+        "La altura mínima no puede ser mayor que la máxima";
       newErrors.maxHeight =
-        "La altura máxima no puede ser menor que la altura mínima";
+        "La altura máxima no puede ser menor que la mínima";
     }
 
     if (
@@ -59,18 +68,22 @@ const Create = () => {
       newErrors.maxWeight = "El peso debe ser un número";
     } else if (parseFloat(input.minWeight) > parseFloat(input.maxWeight)) {
       newErrors.minWeight =
-        "El peso mínimo no puede ser mayor que el peso máximo";
+        "El peso mínimo no puede ser mayor que el máximo";
       newErrors.maxWeight =
-        "El peso máximo no puede ser menor que el peso mínimo";
+        "El peso máximo no puede ser menor que el mínimo";
     }
 
-    if (!/^\d+(\.\d+)?$/.test(input.lifespan)) {
-      newErrors.lifespan = "La vida útil debe ser un número";
+    if (
+      !/^\d+(\.\d+)?$/.test(input.minLife) ||
+      !/^\d+(\.\d+)?$/.test(input.maxLife)
+    ) {
+      newErrors.minLife = "La vida útil debe ser un número";
+      newErrors.maxLife = "La vida útil debe ser un número";
     } else if (parseFloat(input.minLife) > parseFloat(input.maxLife)) {
       newErrors.minLife =
-        "La vida mínima no puede ser mayor que la vida máxima";
+        "La vida mínima no puede ser mayor que la máxima";
       newErrors.maxLife =
-        "La vida máxima no puede ser menor que la vida mínima";
+        "La vida máxima no puede ser menor que la mínima";
     }
 
     setError(newErrors);
@@ -93,128 +106,186 @@ const Create = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    for (const error in errors) {
-      if (error[error] !== "") {
+    for (const key in error) {
+      if (error[key] !== "") {
         return;
       }
     }
 
     const formatedData = {
       ...formData,
-      height: `${minHeight} - ${maxHeight}`,
-      weight: `${minWeight} - ${maxWeight}`,
-      lifespan: `${minLife} - ${maxLife}`,
+      height: `${formData.minHeight || ''} - ${formData.maxHeight || ''}`,
+      weight: `${formData.minWeight || ''} - ${formData.maxWeight || ''}`,
+      lifespan: `${formData.minLife || ''} - ${formData.maxLife || ''}`,
+      temperament: selectedTemperaments.join(',')
     };
 
-    const sendDataToServer = async (formData) => {
-      try {
-        const response = await Axios.post('http://localhost:3001/dogs', formData);
-        return response.data;
-      } catch (error) {
-        throw new Error('Error al enviar datos al servidor');
-      }
-    };
+    console.log(formatedData);
 
     try {
-      const response = await sendDataToServer(formatedData);
+      const response = await dispatch(createDog(formatedData));
       console.log(response);
     } catch (error) {
-      console.error('Error al enviar datos al servidor:', error);
+      console.error("Error al crear el perro:", error);
     }
   };
 
+  const handleSelectChange = (event) => {
+    const selectedValue = event.target.value;
+
+    setSelectedTemperaments([...selectedTemperaments, selectedValue]);
+  };
+
+  useEffect(() => {
+    dispatch(getTemperaments());
+  }, [dispatch]);
+
   return (
     <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="name">Name</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
+      <h1>Create Dog</h1>
+      <div className="name">
+        <div>
+          <label htmlFor="name">Name: </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            required
+          />
+        </div>
         <span className="error">{error.name}</span>
       </div>
-      <div>
-        <p>Altura:</p>
-        <label htmlFor="minHeight">Min</label>
-        <input
-          type="text"
-          id="minHeight"
-          name="minHeight"
-          value={formData.minHeight}
-          onChange={handleChange}
-          required
-        />
-        <span className="error">{error.minHeight}</span>
-        <label htmlFor="maxHeight">Max</label>
-        <input
-          type="text"
-          id="maxHeight"
-          name="maxHeight"
-          value={formData.maxHeight}
-          onChange={handleChange}
-          required
-        />
-        <span className="error">{error.maxHeight}</span>
+      <div className="altura">
+        <div>
+          <p>Altura:</p>
+          <label htmlFor="minHeight"></label>
+          <input
+            className="min"
+            type="text"
+            id="minHeight"
+            name="minHeight"
+            value={formData.minHeight}
+            onChange={handleChange}
+            placeholder="Min"
+            required
+          />
+          <label htmlFor="maxHeight"></label>
+          <input
+            className="max"
+            type="text"
+            id="maxHeight"
+            name="maxHeight"
+            value={formData.maxHeight}
+            onChange={handleChange}
+            placeholder="Max"
+            required
+          />
+        </div>
+        <div className="altura-errors">
+          <span className="error">{error.minHeight}</span>
+          <span className="error">{error.maxHeight}</span>
+        </div>
       </div>
-      <div>
+      <div className="peso">
+        <div>
         <p>Peso: </p>
-        <label htmlFor="minWeight">Min</label>
+        <label htmlFor="minWeight"></label>
         <input
+          className="min"
           type="text"
           id="minWeight"
           name="minWeight"
           value={formData.minWeight}
           onChange={handleChange}
+          placeholder="Min"
           required
         />
-        <span className="error">{error.minWeight}</span>
-        <label htmlFor="maxWeight">Max</label>
+        <label htmlFor="maxWeight"></label>
         <input
+          className="max"
           type="text"
           id="maxWeight"
           name="maxWeight"
           value={formData.maxWeight}
           onChange={handleChange}
+          placeholder="Max"
           required
         />
+        </div>
+        <div className="peso-errors">
+        <span className="error">{error.minWeight}</span>
         <span className="error">{error.maxWeight}</span>
+        </div>
       </div>
-      <div>
-        <p>Vida Útil</p>
-        <label htmlFor="minLife">Min</label>
-        <input
-          type="text"
-          id="minLife"
-          name="minLife"
-          value={formData.minLife}
-          onChange={handleChange}
-          required
-        />
-        <span className="error">{error.minLife}</span>
-        <label htmlFor="maxLife">Max</label>
-        <input
-          type="text"
-          id="maxLife"
-          name="maxLife"
-          value={formData.maxLife}
-          onChange={handleChange}
-          required
-        />
-        <span className="error">{error.maxLife}</span>
+      <div className="vida">
+        <div>
+          <p>Vida Útil</p>
+          <label htmlFor="minLife"></label>
+          <input
+            className="min"
+            placeholder="Min"
+            type="text"
+            id="minLife"
+            name="minLife"
+            value={formData.minLife}
+            onChange={handleChange}
+            required
+          />
+          <label htmlFor="maxLife"></label>
+          <input
+            className="min"
+            placeholder="Min"
+            type="text"
+            id="maxLife"
+            name="maxLife"
+            value={formData.maxLife}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div className="vida-errors">
+          <span className="error">{error.minLife}</span>
+          <span className="error">{error.maxLife}</span>
+        </div>
       </div>
-      <div>
-        <label htmlFor="temperaments">Temperamentos</label>
-        <select id="temperaments" name="temperaments" multiple>
-          <option value="temperament1">Temperament 1</option>
-          <option value="temperament2">Temperament 2</option>
+
+      <div className="temperament">
+        <label htmlFor="temperaments"></label>
+        <textarea
+          id="temperaments"
+          name="temperaments"
+          rows="2"
+          cols="40"
+          value={selectedTemperaments.join(", ")}
+          onChange={handleChange}
+        ></textarea>
+
+        <div className="filters">
+        <button type="button" onClick={() => setSelectedTemperaments([])}>
+          Clean
+        </button>
+
+        <select
+          id="temperaments"
+          name="temperaments"
+          onChange={handleSelectChange}
+        >
+          <option value="">Temperaments</option>
+          {temperaments.map((temperament) => {
+            return (
+              <option key={temperament} value={temperament}>
+                {temperament}
+              </option>
+            );
+          })}
         </select>
+        </div>
       </div>
+
       <div>
-        <button type="submit">Crear Raza</button>
+        <button className="submit" type="submit">Create</button>
       </div>
     </form>
   );

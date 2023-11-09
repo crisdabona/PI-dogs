@@ -16,15 +16,15 @@
 
 .card-container:hover{
   z-index: 100;
-  border-color: #190482;
+  border-color: blueviolet;
   transform: scale(1.1);
 }
 
 .card-container h2{
   font-size: 20px;
-  color: #190482;
+  color: blueviolet;
   margin: 0;
-  background-color: #8E8FFA;
+  background-color: #C2D9FF;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
 }

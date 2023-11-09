@@ -3,6 +3,7 @@ import Landing from './views/landing/Landing'
 import Home from './views/home/Home'
 import Detail from './views/detail/Detail'
 import Create from './views/create/Create'
+import Error from './views/error/Error';
 
 import './App.css';
 
@@ -14,6 +15,7 @@ function App() {
         <Route path='/home' element={ <Home /> } />
         <Route path='/home/:id' element={ <Detail /> } />
         <Route path='/create' element={ <Create /> } />
+        <Route path='*' element={<Error/>} />
       </Routes>
     </div>
   );

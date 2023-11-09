@@ -11,17 +11,17 @@
   align-items: center;
   background-color: #8E8FFA;
   border-radius: 10px;
-  width: 50%;
+  width: 70%;
   height: 60px;
 }
 
 .search-container form input{
   border: none;
   outline: none;
-  width: 80%;
+  width: 90%;
   height: 30px;
   border-radius: 5px;
-  margin-right: 5px;
+  margin-left: 20px;
   padding: 0 10px 0 10px;
 }
 
@@ -35,4 +35,39 @@
 
 .search-container form button:hover{
   color: blue;
+}
+
+.filter-container{
+  margin: 0;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.filter-container select{
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  padding: 0 5px;
+}
+
+.filter-container select:hover{
+  color: blue;
+}
+
+.search-container .button{
+  background-color: #F9F9F9;
+  color: blueviolet;
+  border: solid 2px blueviolet;
+  width: 20%;
+  height: 30px;
+  border-radius: 5px;
+  margin-right: 20px;
+  margin-left: 0;
+  line-height: 28px;
+}
+
+.search-container .button:hover{
+  color: blue;
+  border-color: blue;
 }

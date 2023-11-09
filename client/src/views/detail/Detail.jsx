@@ -1,28 +1,47 @@
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import React from 'react';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+import './detail.css';
 
 const Detail = () => {
-  const { id } = useParams()
-  const allDogs = useSelector(state => state.allDogs)
-  const dogDetail = allDogs.find(dog => dog.id === parseInt(id))
+  const { id } = useParams();
+  const allDogs = useSelector((state) => state.allDogs);
+  const dogDetail = allDogs.find((dog) => dog.id === parseInt(id));
 
-  console.log(dogDetail.image)
+  const renderTableData = () => {
+    const data = [
+      { property: 'ID: ', value: dogDetail?.id },
+      { property: 'Height: ', value: dogDetail?.height?.metric },
+      { property: 'Weight:', value: dogDetail?.weight?.metric },
+      { property: 'Temperaments:', value: dogDetail?.temperament },
+      { property: 'Life Span:', value: dogDetail?.life_span },
+    ];
+
+    return data.map((item, index) => (
+      <tr key={index}>
+        <td>{item.property}</td>
+        <td>{item.value}</td>
+      </tr>
+    ));
+  };
+
   return (
-    <div>
+    <div className='detail.container'>
       {dogDetail ? (
-        <div>
-          <h1>{dogDetail?.name}</h1>
-          <p>ID: {dogDetail?.id}</p>
-          <img src={dogDetail?.image} alt={dogDetail.name} />
-          <p>Height: {dogDetail?.height?.metric}</p>
-          <p>Weight: {dogDetail?.weight?.metric}</p>
-          <p>Temperaments: {dogDetail?.temperament}</p>
-          <p>Life Span: {dogDetail?.life_span}</p>
-        </div>
-      ) : <p>Cargando...</p> }
-    </div>
-  )
-}
+        <div className='detail-e'>
+          <h2>{dogDetail?.name}</h2>
+          <img src={dogDetail?.image} alt={dogDetail?.name} />
 
-export default Detail
+          <table>
+            <tbody>{renderTableData()}</tbody>
+          </table>
+        </div>
+      ) : (
+        <p>Cargando...</p>
+      )}
+    </div>
+  );
+};
+
+export default Detail;

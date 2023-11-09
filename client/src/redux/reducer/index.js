@@ -1,6 +1,6 @@
-import { GET_DOGS, GET_BY_NAME, GET_TEMPERAMENTS} from "../actions"
+import { GET_DOGS, GET_BY_NAME, GET_TEMPERAMENTS, GET_ORIGINS, CREATE_DOG} from "../actions"
 
-let initialState = {allDogs: [], dogsCopy: [], temperaments: []}
+let initialState = {allDogs: [], dogsCopy: [], temperaments: [], origins: []}
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -22,6 +22,19 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         temperaments: action.payload,
       }
+
+    case GET_ORIGINS:
+      return{
+        ...state,
+        origins: action.payload,
+      }
+    
+    case CREATE_DOG:
+      return{
+        ...state,
+        allDogs: [...state.allDogs, action.payload]
+      }
+    
 
     default:
       return state

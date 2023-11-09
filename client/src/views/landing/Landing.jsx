@@ -1,11 +1,16 @@
-import React from 'react'
+import React from 'react';
+import FallingEmojis from '../../components/emojis/FallingEmojis';
+import { Link } from 'react-router-dom';
 
-const Landing = () => {
+import './landing.css'
+
+function LandingPage() {
   return (
-    <div>
-      <h1>Landing Page</h1>
+    <div className="landing-page">
+      <FallingEmojis />
+      <Link className='button' to="/home">Enter Page</Link>
     </div>
-  )
+  );
 }
 
-export default Landing
+export default LandingPage;

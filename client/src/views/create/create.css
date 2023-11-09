@@ -1,0 +1,151 @@
+form {
+  width: 70vw;
+  margin: 0 auto;
+}
+
+form h1 {
+  margin: 0;
+  font-size: 35px;
+  color: blueviolet;
+}
+
+form div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+input{
+  border-radius: 5px;
+  border: none;
+  outline: none;
+  height: 25px;
+}
+
+.name{
+  display: flex;
+  flex-direction: column;
+}
+.name input {
+  width: 50%;
+  margin: 0 5px;
+}
+
+.error{
+  color: red;
+  font-size: 12px;
+}
+
+.altura{
+  display: flex;
+  flex-direction: column;
+}
+
+.altura .min{
+  width: 25%;
+  margin: 0 4px;
+}
+
+.altura .max{
+  width: 23.8%;
+}
+
+.altura-errors{
+  width: 55%;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 30px;
+}
+
+.peso{
+  display: flex;
+  flex-direction: column;
+}
+
+.peso .min{
+  width: 24%;
+  margin: 0 4px;
+}
+
+.peso .max{
+  width: 26%;
+}
+
+.peso-errors{
+  width: 55%;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 30px;
+}
+
+
+.vida{
+  display: flex;
+  flex-direction: column;
+}
+
+.vida .min{
+  width: 25%;
+  margin: 0 4px;
+}
+
+.vida .max{
+  width: 23.8%;
+}
+
+.vida-errors{
+  width: 55%;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 30px;
+}
+
+.temperament{
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10%;
+}
+
+.filters{
+  display: flex;
+  flex-direction: column;
+  width: 20%;
+}
+
+.filters button{
+  width: 110px;
+  height: 20px;
+  font-size: 13px;
+  line-height: 2px;
+  margin-bottom: 5px;
+  color: blueviolet;
+  border: solid 1px blueviolet;
+}
+
+.filters button:hover{
+  color: blue;
+  border-color: blue;
+}
+
+.filters select{
+  width: 110px;
+  font-size: 13px;
+  border-radius: 10px;
+}
+
+.submit{
+  width: 13%;
+  height: 35px;
+  font-size: 18px;
+  margin: 10px auto;
+  line-height: 10px;
+  color: blueviolet;
+  border: solid 2px blueviolet;
+}
+
+.submit:hover{
+  color: blue;
+  border-color: blue;
+}

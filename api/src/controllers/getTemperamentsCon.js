@@ -5,7 +5,7 @@ const {Temperament} = require('../db')
 
 const getTemperaments = async () => {
   const temperamentsApi = (
-    await axios(`https://api.thedogapi.com/v1/breeds?$api_key={API_KEY}`)
+    await axios(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`)
   ).data;
 
   const allTemperaments = temperamentsApi

@@ -1,0 +1,23 @@
+.landing-page{
+  position: relative;
+  overflow: hidden;
+}
+
+.landing-page .button{
+  background-color: #F9F9F9;
+  border-radius: 20px;
+  position: absolute;
+  top: 350px;
+  left: 600px;
+  width: 25%;
+  height: 70px;
+  font-size: 45px;
+  border: solid 2px blueviolet;
+  color: blueviolet;
+  z-index: 2000;
+}
+
+.landing-page .button:hover {
+  color: blue;
+  border-color: blue;
+}
