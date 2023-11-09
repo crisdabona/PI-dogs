@@ -53,6 +53,7 @@ const Home = () => {
 
   const startIndex = (currentPage - 1) * dogsPerPage;
   const endIndex = startIndex + dogsPerPage;
+  
   const filteredDogs = allDogs.filter((dog) => {
     const matchingTemperament = selectedTemperament
       ? dog?.temperament?.split(", ").includes(selectedTemperament)

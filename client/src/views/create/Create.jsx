@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getTemperaments, createDog } from "../../redux/actions";
+import axios from "axios";
 
 
 import "./create.css";
@@ -29,7 +30,7 @@ const Create = () => {
     maxWeight: "",
     minLife: "",
     maxLife: "",
-    temperaments: [],
+    temperaments: '',
   });
 
   const validate = (input) => {
@@ -105,30 +106,28 @@ const Create = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    for (const key in error) {
-      if (error[key] !== "") {
-        return;
-      }
-    }
-
     const formatedData = {
       ...formData,
       height: `${formData.minHeight || ''} - ${formData.maxHeight || ''}`,
       weight: `${formData.minWeight || ''} - ${formData.maxWeight || ''}`,
       lifespan: `${formData.minLife || ''} - ${formData.maxLife || ''}`,
       temperament: selectedTemperaments.join(',')
-    };
-
-    console.log(formatedData);
-
-    try {
-      const response = await dispatch(createDog(formatedData));
-      console.log(response);
-    } catch (error) {
-      console.error("Error al crear el perro:", error);
     }
-  };
+    console.log(formatedData);
+    for (const key in error) {
+      if (error[key] !== "") {
+        return;
+      }
+    }
+    try {
+      await dispatch(createDog(formatedData))
+      
+    } catch (error) {
+      console.log('DATA', error.message);
+    }
+
+  }
+
 
   const handleSelectChange = (event) => {
     const selectedValue = event.target.value;
@@ -163,7 +162,7 @@ const Create = () => {
           <label htmlFor="minHeight"></label>
           <input
             className="min"
-            type="text"
+            type="number"
             id="minHeight"
             name="minHeight"
             value={formData.minHeight}
@@ -174,7 +173,7 @@ const Create = () => {
           <label htmlFor="maxHeight"></label>
           <input
             className="max"
-            type="text"
+            type="number"
             id="maxHeight"
             name="maxHeight"
             value={formData.maxHeight}
@@ -194,7 +193,7 @@ const Create = () => {
         <label htmlFor="minWeight"></label>
         <input
           className="min"
-          type="text"
+          type="number"
           id="minWeight"
           name="minWeight"
           value={formData.minWeight}
@@ -205,7 +204,7 @@ const Create = () => {
         <label htmlFor="maxWeight"></label>
         <input
           className="max"
-          type="text"
+          type="number"
           id="maxWeight"
           name="maxWeight"
           value={formData.maxWeight}
@@ -226,7 +225,7 @@ const Create = () => {
           <input
             className="min"
             placeholder="Min"
-            type="text"
+            type="number"
             id="minLife"
             name="minLife"
             value={formData.minLife}
@@ -237,7 +236,7 @@ const Create = () => {
           <input
             className="min"
             placeholder="Min"
-            type="text"
+            type="number"
             id="maxLife"
             name="maxLife"
             value={formData.maxLife}
